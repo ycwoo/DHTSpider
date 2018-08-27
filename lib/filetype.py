@@ -242,6 +242,18 @@ FILE_TYPE_KEYS = {
 
 
 def get_file_type(l):
+    """
+    获取资源类型，根据后缀名粗略的将资源分为以下7种:
+    0: 视频
+    1: 音频
+    2: 图片
+    3: 文档
+    4: 二进制文件
+    5: 存档文件
+    6: 未知
+    :param l: MetadataModel中的l
+    :return:
+    """
     t = [0 for _ in range(7)]
     for x in l:
         n = os.path.splitext(x.get('n').lower())[1][1:]

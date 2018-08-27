@@ -7,6 +7,7 @@ from struct import pack
 from time import sleep, time
 from lib.utils import random_id
 from lib.bencode import bencode, bdecode
+from model.metadata import save_metadata
 
 
 def send_packet(the_socket, msg):
@@ -106,7 +107,7 @@ def download_metadata(address, infohash, timeout=5):
             metadata.append(packet[packet.index('ee'.encode('utf-8')) + 2:])
         metadata = bdecode(b''.join(metadata))
         if isinstance(metadata.get('name'), str):
-            # MONGO.put(metadata, ''.join(['%02x' % x for x in infohash]).strip())
+            save_metadata(metadata, ''.join(['%02x' % x for x in infohash]).strip())
             print(metadata.get('name'))
     except Exception:
         return
